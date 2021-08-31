@@ -46,7 +46,7 @@ int main() {
             name="input"
             value={this.state.input}
             onChange={this.handleChange}
-            style={{ width: "800px", height: "300px" }}
+            style={{ width: "400px", height: "200px" }}
           />
         </label>
         <br />
@@ -55,7 +55,7 @@ int main() {
           <textarea
             name="tokens"
             value={this.state.result}
-            style={{ width: "1000px", height: "50px" }}
+            style={{ width: "400px", height: "50px" }}
           />
         </label>
         <br />
