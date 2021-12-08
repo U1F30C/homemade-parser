@@ -46,7 +46,7 @@ const reserved = {
   else: { name: "else", code: 22 },
 };
 
-export function scan(input) {
+function scan(input) {
   let tokens = [];
   let i = 0;
   while (i < input.length) {
@@ -58,9 +58,9 @@ export function scan(input) {
         let match = matched[0];
         let code = "";
         let lexem = "";
-        if (pattern.code == identifierCode) {
-          console.log(pattern, match, types[match], reserved[match]);
-        }
+        // if (pattern.code == identifierCode) {
+        //   console.log(pattern, match, types[match], reserved[match]);
+        // }
 
         if (pattern.code == identifierCode && types[match]) {
           code = 4;
@@ -87,3 +87,7 @@ export function scan(input) {
   }
   return { tokens: tokens };
 }
+
+export { scan };
+
+// module.exports = { scan };

@@ -164,6 +164,7 @@ const parsingTable = rawParsingTable.split("\n").map((line) =>
         return { type: "shift", code: Math.abs(transitionCode) };
     })
 );
+console.log(parsingTable);
 
 function getRuleAtIndex(index) {
   return rules[index - 1];
