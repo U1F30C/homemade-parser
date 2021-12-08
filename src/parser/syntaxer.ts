@@ -3,7 +3,7 @@ import { last } from "lodash";
 import { Token } from "./lexer";
 
 interface StackItem {
-  type: string;
+  type: "token" | "state" | "expression";
   data: number | string;
 }
 
