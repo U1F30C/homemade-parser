@@ -56,7 +56,7 @@ function scan(input) {
       let matched = pattern.pattern.exec(sliced);
       if (matched) {
         let match = matched[0];
-        let code = "";
+        let code: string | number = "";
         let lexem = "";
         // if (pattern.code == identifierCode) {
         //   console.log(pattern, match, types[match], reserved[match]);
