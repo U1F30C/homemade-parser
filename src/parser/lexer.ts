@@ -46,8 +46,14 @@ const reserved = {
   else: { name: "else", code: 22 },
 };
 
+export interface Token {
+  code: string | number;
+  lexem: string;
+  name: string;
+}
+
 function scan(input) {
-  let tokens = [];
+  let tokens: Token[] = [];
   let i = 0;
   while (i < input.length) {
     let anyMatchOnIndex = false;
