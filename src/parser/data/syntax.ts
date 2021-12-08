@@ -186,8 +186,12 @@ function getRuleAtIndex(index: number) {
   return rules[index - 1];
 }
 
-function transitionAt(stateIndex: number, symbolCode: number | string) {
+function transitionAt(stateIndex: number, symbolCode: number | string): Action {
   return parsingTable[stateIndex][symbolCode];
 }
 
-export { parsingTable, rules, getRuleAtIndex, transitionAt };
+function acceptedAt(stateIndex: number): Action[] {
+  return parsingTable[stateIndex];
+}
+
+export { parsingTable, rules, getRuleAtIndex, transitionAt, acceptedAt };
