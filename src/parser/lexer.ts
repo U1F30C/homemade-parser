@@ -28,7 +28,7 @@ const patterns = [
   { name: "or operator", pattern: /^&&/, code: 8 },
   { name: "and operator", pattern: /^\|\|/, code: 9 },
   { name: "equality operator", pattern: /^[!=]=/, code: 11 },
-  { name: "and operator", pattern: /^!/, code: 10 },
+  { name: "not operator", pattern: /^!/, code: 10 },
   { name: "semicolon", pattern: /^;/, code: 12 },
   { name: "coma", pattern: /^,/, code: 13 },
   { name: "left parenthesis", pattern: /^\(/, code: 14 },
@@ -42,7 +42,7 @@ const types = { int: true, float: true, char: true, void: true };
 const reserved = {
   if: { name: "if", code: 19 },
   while: { name: "while", code: 20 },
-  return: { name: "return", code: 11 },
+  return: { name: "return", code: 21 },
   else: { name: "else", code: 22 },
 };
 
