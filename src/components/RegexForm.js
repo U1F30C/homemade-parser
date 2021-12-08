@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { scan } from "./../parser/lexer";
+import { parse } from "../parser/syntaxer";
 
 class ParametersForm extends Component {
   state = {
@@ -11,7 +12,8 @@ int main() {
 }
   `,
     tokens: [],
-    result: "",
+    tokenString: [],
+    syncacticAnalysisResult: "",
   };
   handleChange = this.handleChange.bind(this);
   pad(string) {
@@ -26,14 +28,14 @@ int main() {
   handleChange(event) {
     const input = event.target.value;
     const { tokens } = scan(input);
-    let result;
+    let tokenString;
     if (!tokens) {
-      result = "Invalid symbol";
+      tokenString = "Invalid symbol";
     } else {
-      result = tokens.map(this.padAndFormat.bind(this)).join("\n");
+      tokenString = tokens.map(this.padAndFormat.bind(this)).join("\n");
     }
-
-    this.setState({ result, input });
+    const syncacticAnalysisResult = parse(tokens);
+    this.setState({ tokens, input, tokenString, syncacticAnalysisResult });
   }
   //[event.target.name]: event.target.value
 
@@ -54,7 +56,15 @@ int main() {
           Tokens:
           <textarea
             name="tokens"
-            value={this.state.result}
+            value={this.state.tokenString}
+            style={{ width: "400px", height: "50px" }}
+          />
+        </label>
+        <label>
+          Análisis sintáctico:
+          <textarea
+            name="syntax"
+            value={this.state.syncacticAnalysisResult?"Válido":"Inválido"}
             style={{ width: "400px", height: "50px" }}
           />
         </label>
