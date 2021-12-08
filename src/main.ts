@@ -1,5 +1,5 @@
 import { scan } from "./parser/lexer";
-// import { parse } from "./parser/syntaxer";
+import { parse } from "./parser/syntaxer";
 
 function pad(string) {
   return string.toString().padEnd(20, " ");
@@ -25,11 +25,11 @@ function main() {
   } else {
     tokenString = tokens.map(padAndFormat).join("\n");
   }
-  //   const syncacticAnalysisResult = parse(tokens);
   console.log(input);
-  console.log(tokens);
+  // console.log(tokens);
   console.log(tokenString);
-  // console.log(syncacticAnalysisResult);
-  //   this.setState({ tokens, input, tokenString });
+
+  const syncacticAnalysisResult = parse(tokens);
+  console.log(syncacticAnalysisResult);
 }
 main();

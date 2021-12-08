@@ -1,8 +1,13 @@
-import { getRuleAtIndex, transitionAt } from "./../data/syntax";
+import { getRuleAtIndex, transitionAt } from "./data/syntax";
 import { last } from "lodash";
 
+interface StackItem {
+  type: string;
+  data: number | string;
+}
+
 export function parse(tokens) {
-  const stack = [{ type: "state", data: 0 }];
+  const stack: StackItem[] = [{ type: "state", data: 0 }];
   let tokenIndex = 0;
   let token = undefined;
 

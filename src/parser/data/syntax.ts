@@ -1,5 +1,5 @@
 // 52 rules
-const rules = [
+const baseRules: [number, number, string][] = [
   [24, 1, "programa"],
   [25, 0, "Definiciones"],
   [25, 2, "Definiciones"],
@@ -52,11 +52,16 @@ const rules = [
   [45, 3, "Expresion"],
   [45, 3, "Expresion"],
   [45, 1, "Expresion"],
-].map(([code, tokenCount, name]) => ({ code, tokenCount, name }));
+];
+const rules = baseRules.map(([code, tokenCount, name]) => ({
+  code,
+  tokenCount,
+  name,
+}));
 
 // 95 states, 46 codes
 `0	0	0	0	5	0	0	0	0	|	0	0	0	0	0	0	0	0	0	|	0	0	0	-3	1	2	3	4	0	|	0	0	0	0	0	0	0	0	0	|	0	0	0	0	0	0`;
-const rawParsingTable =`0	0	0	0	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-3	1	2	3	4	0	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+const rawParsingTable = `0	0	0	0	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-3	1	2	3	4	0	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 0	0	0	0	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-3	0	7	3	4	0	6	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
