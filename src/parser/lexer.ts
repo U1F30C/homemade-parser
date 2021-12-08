@@ -64,9 +64,6 @@ function scan(input) {
         let match = matched[0];
         let code: string | number = "";
         let lexem = "";
-        // if (pattern.code == identifierCode) {
-        //   console.log(pattern, match, types[match], reserved[match]);
-        // }
 
         if (pattern.code == identifierCode && types[match]) {
           code = 4;
