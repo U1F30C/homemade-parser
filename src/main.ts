@@ -1,12 +1,12 @@
-import { scan } from "./parser/lexer";
+import { scan, Token } from "./parser/lexer";
 import { parse } from "./parser/syntaxer";
 
-function pad(string) {
+function pad(string: string) {
   return string.toString().padEnd(25, " ");
 }
 
-function padAndFormat(token) {
-  return `${pad(token.name)}|${pad(token.lexem)}|${pad(token.code)}`;
+function padAndFormat(token: Token) {
+  return `${pad(token.name)}|${pad(token.lexem)}|${pad(token.code.toString())}`;
 }
 
 function main() {

@@ -1,3 +1,14 @@
+export interface Action {
+  type: "reduce" | "shift";
+  code: number;
+}
+
+export interface ReductionRule {
+  code: number;
+  tokenCount: number;
+  name: string;
+}
+
 // 52 rules
 const baseRules: [number, number, string][] = [
   [24, 1, "programa"],
@@ -53,7 +64,7 @@ const baseRules: [number, number, string][] = [
   [45, 3, "Expresion"],
   [45, 1, "Expresion"],
 ];
-const rules = baseRules.map(([code, tokenCount, name]) => ({
+const rules: ReductionRule[] = baseRules.map(([code, tokenCount, name]) => ({
   code,
   tokenCount,
   name,
@@ -157,7 +168,7 @@ const rawParsingTable = `0	0	0	0	5	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-3	1	2	3	
 -29	0	0	0	-29	0	0	0	0	0	0	0	0	0	0	0	0	-29	0	-29	-29	-29	-29	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
 0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	-21	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0`;
 
-const parsingTable = rawParsingTable.split("\n").map((line) =>
+const parsingTable: Action[][] = rawParsingTable.split("\n").map((line) =>
   line
     .split("\t")
     .map((number) => parseInt(number, 10))
@@ -171,11 +182,11 @@ const parsingTable = rawParsingTable.split("\n").map((line) =>
 );
 // console.log(parsingTable);
 
-function getRuleAtIndex(index) {
+function getRuleAtIndex(index: number) {
   return rules[index - 1];
 }
 
-function transitionAt(stateIndex, symbolCode) {
+function transitionAt(stateIndex: number, symbolCode: number | string) {
   return parsingTable[stateIndex][symbolCode];
 }
 

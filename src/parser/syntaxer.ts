@@ -1,19 +1,20 @@
 import { getRuleAtIndex, transitionAt } from "./data/syntax";
 import { last } from "lodash";
+import { Token } from "./lexer";
 
 interface StackItem {
   type: string;
   data: number | string;
 }
 
-export function parse(tokens) {
+export function parse(tokens: Token[]) {
   const stack: StackItem[] = [{ type: "state", data: 0 }];
   let tokenIndex = 0;
-  let token = undefined;
+  let token: Token = undefined;
 
   while ((token = tokens[tokenIndex])) {
     const tokenId = token.code;
-    let currentState = last(stack).data;
+    let currentState = <number>last(stack).data;
     let action = transitionAt(currentState, tokenId);
     console.log(stack.map((element) => element.type + "-" + element.data));
     console.log(
@@ -31,7 +32,7 @@ export function parse(tokens) {
     } else if (action.type == "reduce") {
       const reducedRule = getRuleAtIndex(action.code);
       const popCount = reducedRule.tokenCount * 2;
-      currentState = last(stack).data;
+      currentState = <number>last(stack).data;
       action = transitionAt(currentState, reducedRule.code);
       if (action == null) return null;
       console.log(currentState, reducedRule.code);
