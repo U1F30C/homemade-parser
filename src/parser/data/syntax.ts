@@ -1,5 +1,5 @@
 export interface Action {
-  type: "reduce" | "shift";
+  type: "reduce" | "shift" | "finish";
   code: number;
 }
 
@@ -174,6 +174,7 @@ const parsingTable: Action[][] = rawParsingTable.split("\n").map((line) =>
     .map((number) => parseInt(number, 10))
     .map((transitionCode) => {
       if (transitionCode == 0) return null;
+      if (transitionCode == -1) return { type: "finish", code: transitionCode };
       if (transitionCode < 0)
         return { type: "reduce", code: Math.abs(transitionCode) };
       if (transitionCode > 0)
