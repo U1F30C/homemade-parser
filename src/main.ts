@@ -2,7 +2,7 @@ import { scan } from "./parser/lexer";
 import { parse } from "./parser/syntaxer";
 
 function pad(string) {
-  return string.toString().padEnd(20, " ");
+  return string.toString().padEnd(25, " ");
 }
 
 function padAndFormat(token) {
