@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { scan } from "./../utils/lexer";
+import { scan } from "./../parser/lexer";
 
 class ParametersForm extends Component {
   state = {
