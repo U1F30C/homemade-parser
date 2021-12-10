@@ -1,6 +1,6 @@
 ##  Analizador sintáctico miniatura
 
-Se presentan dos ejemplos sencillos de gramáticas para realizar el análisis sintáctico. Para esto, el analizador se desarrolló tomando en cuante que debe funcionar para más de una sintaxis.
+Se presentan dos ejemplos sencillos de gramáticas para realizar el análisis sintáctico. Para esto, el analizador se desarrolló tomando en cuante que debe funcionar para más de una sintaxis. La implementación se ha realizado mediante una pila de objetos, de esta manera se puede guardar más información sobre el análisis en cada nodo
 
 
 Esta es la siguiente etapa del parseador/compilador para un lenguaje básico tipo C. Partiendo de la etapa anterior, el analizador sintáctico implementa el algoritmo de un parseador SLR para una gramática predefinida.
