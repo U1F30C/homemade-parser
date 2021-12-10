@@ -1,5 +1,6 @@
 import { scan, Token } from "./parser/lexer";
 import { parse } from "./parser/syntaxer";
+import { printDebugInfo } from "./parser/syntaxer-debug";
 
 function pad(string: string) {
   return string.toString().padEnd(25, " ");
@@ -29,7 +30,7 @@ function main() {
   // console.log(tokens);
   console.log(tokenString);
 
-  const syncacticAnalysisResult = parse(tokens);
+  const syncacticAnalysisResult = parse(tokens, printDebugInfo);
   console.log(syncacticAnalysisResult);
 }
 main();

@@ -1,13 +1,17 @@
-import { getRuleAtIndex, transitionAt } from "./data/syntax";
 import { last } from "lodash";
+import { getRuleAtIndex, transitionAt } from "./data/syntax";
 import { Token } from "./lexer";
 
-interface StackItem {
+interface DebugFunction {
+  (stack: StackItem[], token: Token, at?: number): void;
+}
+
+export interface StackItem {
   type: "token" | "state" | "expression";
   data: number | string;
 }
 
-export function parse(tokens: Token[]) {
+export function parse(tokens: Token[], debug: DebugFunction) {
   const stack: StackItem[] = [{ type: "state", data: 0 }];
   let tokenIndex = 0;
   let token: Token = undefined;
@@ -16,11 +20,12 @@ export function parse(tokens: Token[]) {
     const tokenId = token.code;
     let currentState = <number>last(stack).data;
     let action = transitionAt(currentState, tokenId);
+    debug(stack, token);
     if (action == null) {
       return null;
     } else if (action.type == "shift") {
       const newState = action.code;
-      stack.push({ type: "token", data: token.name });
+      stack.push({ type: "token", data: token.lexem });
       stack.push({ type: "state", data: newState });
       tokenIndex++;
     } else if (action.type == "reduce") {
@@ -29,6 +34,7 @@ export function parse(tokens: Token[]) {
       stack.splice(stack.length - popCount, popCount);
       currentState = <number>last(stack).data;
       action = transitionAt(currentState, reducedRule.code);
+      debug(stack, token, reducedRule.code);
       if (action == null) return null;
       if (action.type == "finish") return {};
 
