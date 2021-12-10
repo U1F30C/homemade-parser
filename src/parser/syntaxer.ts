@@ -26,12 +26,12 @@ export function parse(tokens: Token[]) {
     } else if (action.type == "reduce") {
       const reducedRule = getRuleAtIndex(action.code);
       const popCount = reducedRule.tokenCount * 2;
+      stack.splice(stack.length - popCount, popCount);
       currentState = <number>last(stack).data;
       action = transitionAt(currentState, reducedRule.code);
       if (action == null) return null;
 
       const newState = action.code;
-      stack.splice(stack.length - popCount, popCount);
       stack.push({ type: "expression", data: reducedRule.name });
       stack.push({ type: "state", data: newState });
     } else {
