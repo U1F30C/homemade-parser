@@ -1,17 +1,25 @@
 import { last } from "lodash";
-import { getRuleAtIndex, transitionAt } from "./data/syntax";
+import { Action, ReductionRule } from "./data/syntax";
 import { Token } from "./lexer";
 
 interface DebugFunction {
   (stack: StackItem[], token: Token, at?: number): void;
 }
 
+export interface SyntaxDescription {
+  getRuleAtIndex: (stateIndex: number) => ReductionRule;
+  transitionAt: (stateIndex: number, symbolCode: number | string) => Action;
+}
 export interface StackItem {
   type: "token" | "state" | "expression";
   data: number | string;
 }
 
-export function parse(tokens: Token[], debug: DebugFunction) {
+export function parse(
+  tokens: Token[],
+  grammarSyntax: SyntaxDescription,
+  debug: DebugFunction
+) {
   const stack: StackItem[] = [{ type: "state", data: 0 }];
   let tokenIndex = 0;
   let token: Token = undefined;
@@ -19,7 +27,7 @@ export function parse(tokens: Token[], debug: DebugFunction) {
   while ((token = tokens[tokenIndex])) {
     const tokenId = token.code;
     let currentState = <number>last(stack).data;
-    let action = transitionAt(currentState, tokenId);
+    let action = grammarSyntax.transitionAt(currentState, tokenId);
     debug(stack, token);
     if (action == null) {
       return null;
@@ -29,11 +37,11 @@ export function parse(tokens: Token[], debug: DebugFunction) {
       stack.push({ type: "state", data: newState });
       tokenIndex++;
     } else if (action.type == "reduce") {
-      const reducedRule = getRuleAtIndex(action.code);
+      const reducedRule = grammarSyntax.getRuleAtIndex(action.code);
       const popCount = reducedRule.tokenCount * 2;
       stack.splice(stack.length - popCount, popCount);
       currentState = <number>last(stack).data;
-      action = transitionAt(currentState, reducedRule.code);
+      action = grammarSyntax.transitionAt(currentState, reducedRule.code);
       debug(stack, token, reducedRule.code);
       if (action == null) return null;
       if (action.type == "finish") return {};

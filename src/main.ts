@@ -1,4 +1,4 @@
-import { patterns } from "./parser/data/syntax";
+import { getRuleAtIndex, patterns, transitionAt } from "./parser/data/syntax";
 import { scan, Token } from "./parser/lexer";
 import { parse } from "./parser/syntaxer";
 import { printDebugInfo } from "./parser/syntaxer-debug";
@@ -31,7 +31,11 @@ function main() {
   // console.log(tokens);
   console.log(tokenString);
 
-  const syncacticAnalysisResult = parse(tokens, printDebugInfo);
+  const syncacticAnalysisResult = parse(
+    tokens,
+    { getRuleAtIndex, transitionAt },
+    printDebugInfo
+  );
   console.log(syncacticAnalysisResult);
 }
 main();
