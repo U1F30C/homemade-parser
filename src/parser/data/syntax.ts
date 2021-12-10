@@ -9,7 +9,7 @@ export const patterns: LexerPattern[] = [
   { name: "else", pattern: /^else/, code: 22 },
 
   //primitive types
-  { name: "type", pattern: /^int|float|char|void/, code: 4 },
+  { name: "type", pattern: /^(?:int|float|char|void)/, code: 4 },
 
   {
     name: "identifier",
