@@ -11,6 +11,7 @@ import { Token } from "./lexer";
 import { StackItem } from "./syntaxer";
 
 function colourAction(action: Action) {
+  if (!action) return "Error";
   if (action.type == "shift") {
     return `${chalk.yellow(action.type)} ${action.code}`;
   } else {
@@ -47,7 +48,9 @@ export function printDebugInfo(stack: StackItem[], token: Token, at?: number) {
     .value();
   console.log(">> " + stack.map(coulourStackElement).join(" "));
 
-  console.log(`                        found:'${token.lexem}' ${colourAction(action)}`);
+  console.log(
+    `                        found:'${token.lexem}' ${colourAction(action)}`
+  );
   // console.log(
   //   `          [state ${currentState}] expected [${expected}] found:[${
   //     token.code
