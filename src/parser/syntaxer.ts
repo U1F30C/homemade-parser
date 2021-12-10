@@ -30,6 +30,7 @@ export function parse(tokens: Token[]) {
       currentState = <number>last(stack).data;
       action = transitionAt(currentState, reducedRule.code);
       if (action == null) return null;
+      if (action.type == "finish") return {};
 
       const newState = action.code;
       stack.push({ type: "expression", data: reducedRule.name });
