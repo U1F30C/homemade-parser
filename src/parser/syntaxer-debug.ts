@@ -1,21 +1,16 @@
 import chalk from "chalk";
 import { chain, last } from "lodash";
-import {
-  acceptedAt,
-  getRuleAtIndex,
-  transitionAt,
-} from "./data/syntax";
 import { terminalDescription } from "./data/terminal-description";
 import { Token } from "./lexer";
-import { StackItem } from "./syntaxer";
+import { StackItem, SyntaxDescription } from "./syntaxer";
 import { Action } from "./types";
 
-function colourAction(action: Action) {
+function colourAction(action: Action, syntaxDescription: SyntaxDescription) {
   if (!action) return "Error";
   if (action.type == "shift") {
     return `${chalk.yellow(action.type)} ${action.code}`;
   } else {
-    const rule = getRuleAtIndex(action.code);
+    const rule = syntaxDescription.getRuleAtIndex(action.code);
     return `${chalk.blue(action.type)} ${rule.name} ${rule.code} (pop ${
       rule.tokenCount * 2
     })`;
@@ -34,11 +29,16 @@ function coulourStackElement(item: StackItem) {
   }
 }
 
-export function printDebugInfo(stack: StackItem[], token: Token, at?: number) {
+export function printDebugInfo(
+  stack: StackItem[],
+  token: Token,
+  syntaxDescription: SyntaxDescription,
+  at?: number
+) {
   let currentState = <number>last(stack).data;
-  let action = transitionAt(currentState, at ?? token.code);
+  let action = syntaxDescription.transitionAt(currentState, at ?? token.code);
   const expected = chain(currentState)
-    .thru(acceptedAt)
+    .thru(syntaxDescription.acceptedAt)
     .map((action, i) => (action ? i : null))
     .without(null)
 
@@ -49,7 +49,10 @@ export function printDebugInfo(stack: StackItem[], token: Token, at?: number) {
   console.log(">> " + stack.map(coulourStackElement).join(" "));
 
   console.log(
-    `                        found:'${token.lexem}' ${colourAction(action)}`
+    `                        found:'${token.lexem}' ${colourAction(
+      action,
+      syntaxDescription
+    )}`
   );
   // console.log(
   //   `          [state ${currentState}] expected [${expected}] found:[${

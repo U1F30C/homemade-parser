@@ -3,10 +3,16 @@ import { Token } from "./lexer";
 import { Action, ReductionRule } from "./types";
 
 interface DebugFunction {
-  (stack: StackItem[], token: Token, at?: number): void;
+  (
+    stack: StackItem[],
+    token: Token,
+    syntaxDescription: SyntaxDescription,
+    at?: number
+  ): void;
 }
 
 export interface SyntaxDescription {
+  acceptedAt: (stateIndex: number) => Action[];
   getRuleAtIndex: (stateIndex: number) => ReductionRule;
   transitionAt: (stateIndex: number, symbolCode: number | string) => Action;
 }
@@ -28,7 +34,7 @@ export function parse(
     const tokenId = token.code;
     let currentState = <number>last(stack).data;
     let action = grammarSyntax.transitionAt(currentState, tokenId);
-    debug(stack, token);
+    debug(stack, token, grammarSyntax);
     if (action == null) {
       return null;
     } else if (action.type == "shift") {
@@ -42,7 +48,7 @@ export function parse(
       stack.splice(stack.length - popCount, popCount);
       currentState = <number>last(stack).data;
       action = grammarSyntax.transitionAt(currentState, reducedRule.code);
-      debug(stack, token, reducedRule.code);
+      debug(stack, token, grammarSyntax, reducedRule.code);
       if (action == null) return null;
       if (action.type == "finish") return {};
 
