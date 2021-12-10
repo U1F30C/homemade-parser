@@ -184,7 +184,7 @@ const parsingTable: Action[][] = rawParsingTable.split("\n").map((line) =>
 // console.log(parsingTable);
 
 function getRuleAtIndex(index: number) {
-  return rules[index - 1];
+  return rules[index - 2];
 }
 
 function transitionAt(stateIndex: number, symbolCode: number | string): Action {
