@@ -8,6 +8,59 @@ export interface ReductionRule {
   tokenCount: number;
   name: string;
 }
+export interface LexerPattern {
+  name: string;
+  pattern: RegExp;
+  code: number;
+}
+
+export const patterns: LexerPattern[] = [
+  { name: "whitespace", pattern: /^\s+/, code: -1 },
+  // reserved words
+  { name: "if", pattern: /^if/, code: 19 },
+  { name: "while", pattern: /^while/, code: 20 },
+  { name: "return", pattern: /^return/, code: 21 },
+  { name: "else", pattern: /^else/, code: 22 },
+
+  //primitive types
+  { name: "type", pattern: /^int|float|char|void/, code: 4 },
+
+  {
+    name: "identifier",
+    pattern: /^[_A-Za-z][_A-Za-z0-9]*/,
+    code: 0,
+  },
+  {
+    name: "integer",
+    pattern: /^-?\d+/,
+    code: 1,
+  },
+  {
+    name: "float",
+    pattern: /^(?:(?:-?\d+(\.\d+(e\d+)?)?))/,
+    code: 2,
+  },
+  {
+    name: "string",
+    pattern: /^".*"/,
+    code: 3,
+  },
+  { name: "arithmetic sum operator", pattern: /^\+|\-/, code: 5 },
+  { name: "arithmetic multiplication operator", pattern: /^\/|\*/, code: 6 },
+  { name: "relational operator", pattern: /^[<>]=?/, code: 7 },
+  { name: "or operator", pattern: /^&&/, code: 8 },
+  { name: "and operator", pattern: /^\|\|/, code: 9 },
+  { name: "equality operator", pattern: /^[!=]=/, code: 11 },
+  { name: "not operator", pattern: /^!/, code: 10 },
+  { name: "semicolon", pattern: /^;/, code: 12 },
+  { name: "coma", pattern: /^,/, code: 13 },
+  { name: "left parenthesis", pattern: /^\(/, code: 14 },
+  { name: "right parenthesis", pattern: /^\)/, code: 15 },
+  { name: "left bracket", pattern: /^\{/, code: 16 },
+  { name: "right bracket", pattern: /^\}/, code: 17 },
+  { name: "assign", pattern: /^=/, code: 18 },
+  { name: "end of file", pattern: /^$/, code: 23 },
+];
 
 // 52 rules
 const baseRules: [number, number, string][] = [

@@ -1,3 +1,4 @@
+import { patterns } from "./parser/data/syntax";
 import { scan, Token } from "./parser/lexer";
 import { parse } from "./parser/syntaxer";
 import { printDebugInfo } from "./parser/syntaxer-debug";
@@ -19,8 +20,8 @@ function main() {
     }
     `;
 
-  const { tokens } = scan(input);
-  let tokenString;
+  const { tokens } = scan(input, patterns);
+  let tokenString: string;
   if (!tokens) {
     tokenString = "Invalid symbol";
   } else {
