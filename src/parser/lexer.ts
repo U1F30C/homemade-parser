@@ -32,7 +32,7 @@ function scan(input: string, patterns: LexerPattern[], delimiterCode = -1) {
       return { tokens: null };
     }
   }
-  return { tokens: tokens };
+  return { tokens: tokens.concat([{ code: 2, lexem: "$", name: "EOF" }]) };
 }
 
 export { scan };
