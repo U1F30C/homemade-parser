@@ -10,7 +10,7 @@ En la captura, cada dos líneas representan: la pila del analizador (resaltada c
 La acción se representa como shift (amarillo) o reduce (azul)
 En la pila se colorean de púrpura las expresiones reducidas, de blanco los tokens y de gris los estados.
 ```
-[ENTRADA:]
+[ENTRADA VÁLIDA:]
     int main(){
     }
 ```
@@ -18,7 +18,7 @@ En la pila se colorean de púrpura las expresiones reducidas, de blanco los toke
 ![Captura](screenshots/syntaxer1.png)
 
 ```
-[ENTRADA:]
+[ENTRADA INVÁLIDA:]
     int main() 
     }
     
