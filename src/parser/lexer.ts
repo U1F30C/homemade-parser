@@ -1,4 +1,4 @@
-import { LexerPattern } from "./data/syntax";
+import { LexerPattern } from "./types";
 
 export interface Token {
   code: number;

@@ -2,13 +2,13 @@ import chalk from "chalk";
 import { chain, last } from "lodash";
 import {
   acceptedAt,
-  Action,
   getRuleAtIndex,
   transitionAt,
 } from "./data/syntax";
 import { terminalDescription } from "./data/terminal-description";
 import { Token } from "./lexer";
 import { StackItem } from "./syntaxer";
+import { Action } from "./types";
 
 function colourAction(action: Action) {
   if (!action) return "Error";

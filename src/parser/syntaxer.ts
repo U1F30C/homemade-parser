@@ -1,6 +1,6 @@
 import { last } from "lodash";
-import { Action, ReductionRule } from "./data/syntax";
 import { Token } from "./lexer";
+import { Action, ReductionRule } from "./types";
 
 interface DebugFunction {
   (stack: StackItem[], token: Token, at?: number): void;
